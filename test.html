@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1><span>{{00}}</span>의 소개</h1>
+        이름: <input type="text" class="v-model" value="dongduu" />
+    </div>
+    <!-- <div id="app">
+        <input type="text" v-model="age" />
+        <p>저는 {{ age }} 입니다.</p>
+        <p>{{ broAge }}</p>
+        <button v-on:click="sumAge">나이증가</button>
+    </div> -->
+    
+    <script>
+        const appName = document.querySelector('#app');
+        const inputName = appName.querySelector('.v-model');
+        const spanEl = appName.querySelector('span');
+
+        const data = {
+            get name() {
+                return inputName.value;
+            },
+            set name(str) {
+                spanEl.textContent = str;
+            },
+        }
+
+        spanEl.textContent = data.name;
+        inputName.addEventListener('keyup', e => {
+            data.name = e.target.value;
+        })
+
+        // const person = {
+        //     firstName: 'dongdu',
+        //     lastName: 'Lee',
+        //     fullName() {
+        //         return `${this.firstName} ${this.lastName}`
+        //     },
+        //     writeFullName(name) {
+        //         const part = name.split(' ');
+        //         this.firstName = part[0];
+        //         this.lastName = part[1];
+        //     }
+        // };
+        // person.writeFullName('Elsoo jung');
+
+        const person = {
+            firstName: 'dongjoo',
+            lastName: 'Lee',
+            get fullName() {
+                return `${this.firstName} ${this.lastName}`
+            },
+            set fullName(name) {
+                const part = name.split(' ');
+                this.firstName = part[0];
+                this.lastName = part[1];
+            }
+        }
+
+
+        // const 붕어빵 = new Vue({
+        //     el:'#app', 
+        //     data: {age:22},
+        //     computed: {
+        //         broAge() {
+        //             return `우리 오빠 나이는 ${this.age + 5}살입니다.`;
+        //         }
+        //     },
+        //     methods: {
+        //         sumAge() {
+        //             this.age++;
+        //         },
+        //         getName() {},
+        //     },
+        //     created() {
+                
+        //     }
+        // });
+        // console.log(붕어빵);
+    </script>
+</body>
+</html>

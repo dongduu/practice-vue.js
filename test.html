@@ -23,10 +23,20 @@ body {padding:30px;}
 <div id="app">
     <h1>Sales Product: cart({{ total }}) - {{ totalPrice }}원</h1>
     
-        <product-list 
-            v-bind:items-data="chips"
-            v-on:pick-up="parentWork"
-        ></product-list>
+    <div class="cart">
+        <h3>구입목록</h3>
+        <ul>
+            <li>
+                <strong>{{ chips[crr].title }}</strong>
+                <span>{{ chips }}</span>
+            </li>
+        </ul>
+    </div>
+
+    <product-list 
+        v-bind:items-data="chips"
+        v-on:pick-up="parentWork"
+    ></product-list>
    
 </div>
     
@@ -50,14 +60,14 @@ const productList = {
                 <strong>{{ item.title }}</strong>
                 <span>{{ item.desc }}</span>
                 <b>{{ item.price }} 원</b>
-                <button v-on:click="childWork(item.price)">구입하기</button>
+                <button v-on:click="childWork(i)">구입하기</button>
             </li>
         </ul>
     `,
     props: ['itemsData'],
     methods: {
-        childWork(price) {
-            this.$emit('pick-up', price);
+        childWork(index) {
+            this.$emit('pick-up', index);
         }
     }
 }
@@ -68,6 +78,7 @@ const 붕어빵 = new Vue({
     data: {
         total: 0,
         totalPrice: 0,
+        crrIndex: [],
         chips:[{
                 img:`images/mango.jpg`,
                 title:`자연그대로 망고칩`,
@@ -89,10 +100,11 @@ const 붕어빵 = new Vue({
         ]
     },
     methods: {
-        parentWork(price) {
+        parentWork(index) {
             console.log('aa');
             this.total++;
-            this.totalPrice =+ price;
+            this.totalPrice =+ this.chips[index].price;
+            this.crrIndex.push(index);
         }
     }
 });
